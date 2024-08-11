@@ -11,6 +11,7 @@ public class InventoryItem {
     private String itemDescription;
     private int quantity;
     private Date expirationDate;
+    private int days_until_expiration;
     private boolean forDonation;
     private boolean surplus;
 
@@ -30,6 +31,8 @@ public class InventoryItem {
         this.itemDescription = itemDescription;
         this.quantity = quantity;
         this.expirationDate = expirationDate;
+        long difference = expirationDate.getTime() - System.currentTimeMillis();
+        this.days_until_expiration = (int) Math.floor(difference/86400000);
         this.forDonation = forDonation;
         this.surplus = surplus;
     }
@@ -116,12 +119,25 @@ public class InventoryItem {
 
     /**
      * Sets the expiration date of the item.
+     * Whenever expiration date is set/updated, days until expiration is automatically set
      * @param expirationDate The item expiration date to set.
      */
     public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
+        long difference = (long) (Math.floor(expirationDate.getTime()/86400000) - Math.floor(System.currentTimeMillis()/86400000));
+        this.days_until_expiration = (int) difference;
     }
 
+    /**
+     * Gets how many days until item expires from current date
+     * calculation is done when function is called to ensure accurate value every build
+     * @return how many days until the item expires
+     */
+    public int getDays_Until_Expiration(){
+        long difference = (long) (Math.floor(expirationDate.getTime()/86400000) - Math.floor(System.currentTimeMillis()/86400000));
+        this.days_until_expiration = (int) difference;
+        return this.days_until_expiration;
+    }
     /**
      * Checks if the item is for donation.
      * @return True if the item is for donation, otherwise false.
