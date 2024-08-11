@@ -28,7 +28,6 @@
                 <th>Description</th>
                 <th>Quantity</th>
                 <th>Expiration Date</th>
-                <th>Days Until Expiration</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -42,7 +41,6 @@
                     <td><%= item.getItemDescription() %></td>
                     <td><%= item.getQuantity() %></td>
                     <td><fmt:formatDate value="${item.expirationDate}" pattern="yyyy-MM-dd" /></td>
-                    <td><%= item.getDays_Until_Expiration() %></td>
             <td>
                         <a href="EditItemServlet?itemId=<%= item.getItemId() %>">Edit</a> <!-- Edit link -->
                     </td>
