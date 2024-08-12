@@ -28,6 +28,7 @@
                 <th>Description</th>
                 <th>Quantity</th>
                 <th>Expiration Date</th>
+                <th>Days Until Expiration</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -41,9 +42,20 @@
                     <td><%= item.getItemDescription() %></td>
                     <td><%= item.getQuantity() %></td>
                     <td><%= item.getExpirationDate() %></td>
+                    <td><%= item.getDays_Until_Expiration() %></td>
                     <td>
-                        <a href="ClaimFoodServlet?itemId=<%= item.getItemId() %>">Claim Food</a> <!-- Claim food link -->
+                    <form action="ClaimFoodServlet" method="post">
+                    <input type="hidden" name="itemId" value="<%= item.getItemId() %>">
+                    <button type="submit">Claim</button>
+                    </form>
                     </td>
+                    <td>
+                    <form action="SubscriptionServlet" method="get">
+                    <input type="hidden" name="storeId" value="<%= item.getStoreId() %>">
+                    <button type="submit">Subscribe to this store!</button>
+                    </form> 
+                    </td>
+                    
                 </tr>
             <% } %>
         </tbody>

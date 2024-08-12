@@ -1,5 +1,8 @@
 package Servlet;
-
+/**
+ *
+ * @author Chang Li
+ */
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -18,7 +21,7 @@ import inventory.InventoryItemDAOImpl;
  */
 @WebServlet("/RetailerServlet")
 public class RetailerServlet extends HttpServlet {
-    private InventoryItemDAO inventoryDAO = new InventoryItemDAOImpl();
+    private InventoryItemDAOImpl inventoryDAO = new InventoryItemDAOImpl();
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -31,7 +34,7 @@ public class RetailerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Fetch inventory items for the retailer from the database
-        List<InventoryItem> inventoryItems = inventoryDAO.getAllInventoryItems();
+        List<InventoryItem> inventoryItems = inventoryDAO.getStoreInventoryItems((int) request.getSession().getAttribute("userId"));
 
         // Set inventoryItems as an attribute in the request
         request.setAttribute("inventoryItems", inventoryItems);

@@ -1,5 +1,8 @@
 package Servlet;
-
+/**
+ *
+ * @author Yuyang Du, Chang Li
+ */
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +16,7 @@ import inventory.InventoryItemDAOImpl;
  * Servlet implementation class PurchaseItemServlet
  * This servlet handles the purchase of an item from the inventory.
  */
-@WebServlet("/PurchaseItemServlet")
+@WebServlet("/ClaimFoodServlet")
 public class ClaimFoodServlet extends HttpServlet {
     private final InventoryItemDAOImpl inventoryDAO = new InventoryItemDAOImpl();
 

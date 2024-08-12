@@ -1,11 +1,15 @@
 package Servlet;
-
+/**
+ *
+ * @author Chang Li
+ */
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import user.User;
 import user.UserDAOImpl;
 import user.UserType;
 
@@ -34,18 +38,26 @@ public class LoginServlet extends HttpServlet {
         if (userDAO.authenticateUser(email, password)) {
             // Retrieve user type
             UserType userType = userDAO.getUserType(email);
-
+            User relevant = userDAO.getUserByEmail(email);
+            request.getSession().setAttribute("userId",relevant.getUserId());
+            request.getSession().setAttribute("SenderEmail",email);
             // Redirect user based on user type
             if (userType != null) {
                 switch (userType) {
                     case CONSUMER:
+                        request.getSession().setAttribute("userType","CONSUMER");
                         response.sendRedirect("ConsumerServlet");
+                       
                         break;
                     case RETAILER:
+                        request.getSession().setAttribute("userType","RETAILER");
                         response.sendRedirect("RetailerServlet");
+                        
                         break;
                     case CHARITABLE_ORGANIZATION:
+                        request.getSession().setAttribute("userType","CHARITY");
                         response.sendRedirect("CharitableOrganizationServlet");
+                        
                         break;
                     default:
                         // Handle other cases or errors

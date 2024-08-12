@@ -1,5 +1,8 @@
 package Servlet;
-
+/**
+ *
+ * @author Yuyang Du, Chang Li
+ */
 import java.io.IOException;
 import java.sql.Date;
 import javax.servlet.ServletException;
@@ -10,6 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import inventory.InventoryItem;
 import inventory.InventoryItemDAO;
 import inventory.InventoryItemDAOImpl;
+import java.util.List;
+import subscription.Emailer;
+import subscription.SubscriptionDAO;
+import subscription.SubscriptionDAOImpl;
+import subscription.subscription;
 
 /**
  * Servlet implementation class AddNewItemServlet
@@ -18,7 +26,8 @@ import inventory.InventoryItemDAOImpl;
 @WebServlet("/AddNewItemServlet")
 public class AddNewItemServlet extends HttpServlet {
     private final InventoryItemDAO inventoryDAO = new InventoryItemDAOImpl();
-
+    private final SubscriptionDAO subsDAO = new SubscriptionDAOImpl();
+    private final Emailer mail = new Emailer();
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -45,10 +54,16 @@ public class AddNewItemServlet extends HttpServlet {
         newItem.setExpirationDate(expirationDate);
         newItem.setForDonation(forDonation);
         newItem.setSurplus(surplus);
+        newItem.setStoreId((int) request.getSession().getAttribute("userId"));
 
         // Add the new item to the inventory
         inventoryDAO.addInventoryItem(newItem);
-
+        //grab the list of every email subscripbed to this store
+        List<subscription> subs = subsDAO.getAllSubscribers((int) request.getSession().getAttribute("userId"));
+        for(int i=0; i<subs.size() ; i++){
+            //send a email to each subscriber
+            mail.send(subs.get(i).getUserEmail(), (String) request.getSession().getAttribute("SenderEmail"));
+        }
         // Redirect back to the inventory management page
         response.sendRedirect(request.getContextPath() + "/RetailerServlet");
     }

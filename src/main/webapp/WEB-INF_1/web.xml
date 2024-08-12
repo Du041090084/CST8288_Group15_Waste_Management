@@ -45,7 +45,60 @@
         <url-pattern>/AddNewItemServlet</url-pattern>
     </servlet-mapping>
     
+    <servlet>
+        <servlet-name>ClaimFoodServlet</servlet-name>
+        <servlet-class>Servlet.ClaimFoodServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>ClaimFoodServlet</servlet-name>
+        <url-pattern>/ClaimFoodServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>RedirectNotificationServlet</servlet-name>
+        <servlet-class>Servlet.RedirectNotificationServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>RedirectNotificationServlet</servlet-name>
+        <url-pattern>/RedirectNotificationServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>EditNotificationServlet</servlet-name>
+        <servlet-class>Servlet.EditNotificationServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>EditNotificationServlet</servlet-name>
+        <url-pattern>/EditNotificationServlet</url-pattern>
+    </servlet-mapping>
   
+  <servlet>
+        <servlet-name>redirectEditItemServlet</servlet-name>
+        <servlet-class>Servlet.redirectEditItemServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>redirectEditItemServlet</servlet-name>
+        <url-pattern>/redirectEditItemServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>EditNotificationServlet</servlet-name>
+        <url-pattern>/EditNotificationServlet</url-pattern>
+    </servlet-mapping>
+  
+  <servlet>
+        <servlet-name>SubscriptionServlet</servlet-name>
+        <servlet-class>Servlet.SubscriptionServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>SubscriptionServlet</servlet-name>
+        <url-pattern>/SubscriptionServlet</url-pattern>
+    </servlet-mapping>
     
     <session-config>
         <session-timeout>30</session-timeout>

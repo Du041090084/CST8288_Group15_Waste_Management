@@ -1,5 +1,8 @@
 package user;
-
+/**
+ *
+ * @author Chang Li
+ */
 
 /**
  * Represents a user entity.

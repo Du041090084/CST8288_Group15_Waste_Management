@@ -1,5 +1,8 @@
 package inventory;
-
+/**
+ *
+ * @author  Chang Li
+ */
 import java.util.List;
 
 /**

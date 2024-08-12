@@ -28,6 +28,7 @@
                 <th>Description</th>
                 <th>Quantity</th>
                 <th>Expiration Date</th>
+                <th>Days Until Expiration</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -40,13 +41,19 @@
                     <td><%= item.getItemName() %></td>
                     <td><%= item.getItemDescription() %></td>
                     <td><%= item.getQuantity() %></td>
-                    <td><fmt:formatDate value="${item.expirationDate}" pattern="yyyy-MM-dd" /></td>
+                    <td><%= item.getExpirationDate() %></td>
+                    <td><%= item.getDays_Until_Expiration() %></td>
                     <td>
-    <form action="PurchaseItemServlet" method="post">
-        <input type="hidden" name="itemId" value="<%= item.getItemId() %>">
-        <button type="submit">Purchase</button>
-    </form>
-</td>
+                        <form action="ClaimFoodServlet" method="post">
+                        <input type="hidden" name="itemId" value="<%= item.getItemId() %>">
+                        <button type="submit">Claim</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="SubscriptionServlet" method="get">
+                        <input type="hidden" name="storeId" value="<%= item.getStoreId() %>">
+                        <button type="submit">Subscribe to this store!</button>
+                    </td>
                 </tr>
             <% } %>
         </tbody>

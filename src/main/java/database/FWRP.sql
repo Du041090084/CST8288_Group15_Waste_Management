@@ -19,14 +19,22 @@ CREATE TABLE InventoryItem (
     quantity INT NOT NULL,
     expirationDate DATE NOT NULL,
     surplus BOOLEAN NOT NULL,
-    forDonation BOOLEAN NOT NULL
+    forDonation BOOLEAN NOT NULL,
+    storeId INT NOT NULL,
+    FOREIGN KEY (storeId) REFERENCES User(userId)
 );
 
-CREATE TABLE SurplusFoodAlert (
-    surplusFoodAlertId INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+CREATE TABLE notifications (
+    notificationId INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     userId INT,
-    location VARCHAR(50) NOT NULL,
-    communicationMethod VARCHAR(50) NOT NULL,
-    foodPreferences VARCHAR(75) NOT NULL,
+    surplusFoodId INT,
+    notificationMessage VARCHAR(75) NOT NULL,
     FOREIGN KEY (userId) REFERENCES User(userId)
 );
+
+CREATE TABLE subscriptions (
+    userEmail VARCHAR(50) NOT NULL,
+    storeId INT NOT NULL,
+    FOREIGN KEY (userEmail) references User(email),
+    FOREIGN KEY (storeId) references User(userId),
+)
