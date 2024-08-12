@@ -10,14 +10,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import notification.Notification;
+import notification.NotificationDAO;
+import notification.NotificationDAOImpl;
 
 /**
  * Servlet implementation class EditItemServlet
  * This servlet handles requests related to editing inventory items.
  */
-@WebServlet("/EditItemServlet")
-public class EditItemServlet extends HttpServlet {
-    private InventoryItemDAOImpl inventoryDAO = new InventoryItemDAOImpl();
+@WebServlet("/EditNotificationsServlet")
+public class EditNotificationServlet extends HttpServlet {
+    private NotificationDAOImpl notificationDAO = new NotificationDAOImpl();
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -30,16 +33,16 @@ public class EditItemServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Get the itemId parameter from the request
-        int itemId = Integer.parseInt(request.getParameter("itemId"));
+        int notificationId = Integer.parseInt(request.getParameter("notificationId"));
 
         // Retrieve the inventory item from the database using its itemId
-        InventoryItem item = inventoryDAO.getInventoryItemById(itemId);
+        Notification notification = notificationDAO.read(notificationId);
 
         // Set the inventory item as an attribute in the request
-        request.setAttribute("item", item);
+        request.setAttribute("notification", notification);
 
         // Forward the request to the edit-item.jsp page
-        RequestDispatcher dispatcher = request.getRequestDispatcher("editItem.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("createNotification.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -53,37 +56,22 @@ public class EditItemServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    String itemIdStr = request.getParameter("itemId");
-    if (itemIdStr == null || itemIdStr.isEmpty()) {
-        response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid item ID");
+    String notificationIdStr = request.getParameter("notificationId");
+    if (notificationIdStr == null || notificationIdStr.isEmpty()) {
+        response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid notification ID");
         return;
     }
 
-    int itemId;
+    int notificationId;
     try {
-        itemId = Integer.parseInt(itemIdStr);
+        notificationId = Integer.parseInt(notificationIdStr);
     } catch (NumberFormatException e) {
-        response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid item ID format");
+        response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid notification ID format");
         return;
     }
 
-    if (request.getParameter("delete") != null) {
-        inventoryDAO.deleteInventoryItem(itemId);
-        response.sendRedirect(request.getContextPath() + "/RetailerServlet");
-    } else {
-        String itemName = request.getParameter("itemName");
-        String itemDescription = request.getParameter("itemDescription");
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
-        Date expirationDate = Date.valueOf(request.getParameter("expirationDate"));
-        boolean forDonation = request.getParameter("forDonation") != null;
-        boolean surplus = request.getParameter("surplus") != null;
+        notificationDAO.deleteNotification(notificationId);
+        response.sendRedirect("listNotifications.jsp");
 
-        InventoryItem updatedItem = new InventoryItem(itemId, itemName, itemDescription, quantity, expirationDate, forDonation, surplus);
-
-        inventoryDAO.updateInventoryItem(updatedItem);
-
-        response.sendRedirect(request.getContextPath() + "/RetailerServlet");
-    }
 }
-
 }

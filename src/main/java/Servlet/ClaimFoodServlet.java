@@ -13,7 +13,7 @@ import inventory.InventoryItemDAOImpl;
  * Servlet implementation class PurchaseItemServlet
  * This servlet handles the purchase of an item from the inventory.
  */
-@WebServlet("/PurchaseItemServlet")
+@WebServlet("/ClaimFoodServlet")
 public class ClaimFoodServlet extends HttpServlet {
     private final InventoryItemDAOImpl inventoryDAO = new InventoryItemDAOImpl();
 

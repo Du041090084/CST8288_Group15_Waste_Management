@@ -22,11 +22,10 @@ CREATE TABLE InventoryItem (
     forDonation BOOLEAN NOT NULL
 );
 
-CREATE TABLE SurplusFoodAlert (
-    surplusFoodAlertId INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+CREATE TABLE notifications (
+    notificationId INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     userId INT,
-    location VARCHAR(50) NOT NULL,
-    communicationMethod VARCHAR(50) NOT NULL,
-    foodPreferences VARCHAR(75) NOT NULL,
+    surplusFoodId INT,
+    notificationMessage VARCHAR(75) NOT NULL,
     FOREIGN KEY (userId) REFERENCES User(userId)
 );

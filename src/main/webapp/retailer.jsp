@@ -41,9 +41,9 @@
                     <td><%= item.getItemName() %></td>
                     <td><%= item.getItemDescription() %></td>
                     <td><%= item.getQuantity() %></td>
-                    <td><fmt:formatDate value="${item.expirationDate}" pattern="yyyy-MM-dd" /></td>
+                    <td><%= item.getExpirationDate() %></td>
                     <td><%= item.getDays_Until_Expiration() %></td>
-            <td>
+                    <td>
                         <a href="EditItemServlet?itemId=<%= item.getItemId() %>">Edit</a> <!-- Edit link -->
                     </td>
                 </tr>
@@ -53,6 +53,10 @@
          <!-- Add New Item Button -->
     
          <a href="./addNewItem.jsp" <button>Add New Item</button></a>
+         <form action="RedirectNotification" method="post">
+             <button type="submit">Notifications</button>
+        </form>
+        
         </div>
          <footer>
         <p>&copy; 2024 Platform Name. All rights reserved.</p>
