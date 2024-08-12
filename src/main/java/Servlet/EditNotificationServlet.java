@@ -18,8 +18,8 @@ import notification.NotificationDAO;
 import notification.NotificationDAOImpl;
 
 /**
- * Servlet implementation class EditItemServlet
- * This servlet handles requests related to editing inventory items.
+ * Servlet implementation class EditNotificationsServlet
+ * This servlet handles requests related to editing notification.
  */
 @WebServlet("/EditNotificationsServlet")
 public class EditNotificationServlet extends HttpServlet {
