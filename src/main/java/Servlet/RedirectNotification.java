@@ -13,7 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import notification.Emailer;
+import subscription.Emailer;
 import notification.Notification;
 import notification.NotificationDAOImpl;
 
@@ -110,7 +110,6 @@ public class RedirectNotification extends HttpServlet {
         Notification newNotifiation = new Notification(1,parseInt(request.getParameter("userId")),parseInt(request.getParameter("surplusFoodId")),request.getParameter("notificationMessage"));
         notificationDAO.create(newNotifiation);
         String SenderEmail = (String) request.getSession().getAttribute("SenderEmail");
-        email.send(SenderEmail);
         List<Notification> Notifications = notificationDAO.getAllNotifications();
 
                 // Set donationInventoryItems as an attribute in the request
