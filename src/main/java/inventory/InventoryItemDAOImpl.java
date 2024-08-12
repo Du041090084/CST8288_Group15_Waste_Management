@@ -27,8 +27,8 @@ public class InventoryItemDAOImpl implements InventoryItemDAO {
      */
     @Override
     public void addInventoryItem(InventoryItem item) {
-        String sql = "INSERT INTO inventoryItem (itemName, itemDescription, quantity, expirationDate, forDonation, surplus) " +
-                     "VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO inventoryItem (itemName, itemDescription, quantity, expirationDate, forDonation, surplus, storeId) " +
+                     "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = DBConnection.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -38,6 +38,7 @@ public class InventoryItemDAOImpl implements InventoryItemDAO {
             statement.setDate(4, item.getExpirationDate());
             statement.setBoolean(5, item.isForDonation());
             statement.setBoolean(6, item.isSurplus());
+            statement.setInt(7,item.getStoreId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -61,6 +62,7 @@ public class InventoryItemDAOImpl implements InventoryItemDAO {
                 item.setExpirationDate(resultSet.getDate("expirationDate"));
                 item.setForDonation(resultSet.getBoolean("forDonation"));
                 item.setSurplus(resultSet.getBoolean("surplus"));
+                item.setStoreId(resultSet.getInt("storeId"));
                 inventoryItems.add(item);
             }
         } catch (SQLException e) {
@@ -73,7 +75,7 @@ public class InventoryItemDAOImpl implements InventoryItemDAO {
     @Override
     public void updateInventoryItem(InventoryItem item) {
         String sql = "UPDATE inventoryItem SET itemName = ?, itemDescription = ?, quantity = ?, expirationDate = ?, " +
-                     "forDonation = ?, surplus = ? WHERE itemId = ?";
+                     "forDonation = ?, surplus = ?, storeId = ? WHERE itemId = ?";
 
         try (Connection connection = DBConnection.getInstance().getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -83,7 +85,8 @@ public class InventoryItemDAOImpl implements InventoryItemDAO {
             statement.setDate(4, item.getExpirationDate());
             statement.setBoolean(5, item.isForDonation());
             statement.setBoolean(6, item.isSurplus());
-            statement.setInt(7, item.getItemId());
+            statement.setInt(7, item.getStoreId());
+            statement.setInt(8,item.getItemId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -125,6 +128,7 @@ public class InventoryItemDAOImpl implements InventoryItemDAO {
                     item.setExpirationDate(resultSet.getDate("expirationDate"));
                     item.setForDonation(resultSet.getBoolean("forDonation"));
                     item.setSurplus(resultSet.getBoolean("surplus"));
+                    item.setStoreId(resultSet.getInt("storeId"));
                     inventoryItems.add(item);
                 }
             }
@@ -157,6 +161,7 @@ public class InventoryItemDAOImpl implements InventoryItemDAO {
                     item.setExpirationDate(resultSet.getDate("expirationDate"));
                     item.setForDonation(resultSet.getBoolean("forDonation"));
                     item.setSurplus(resultSet.getBoolean("surplus"));
+                    item.setStoreId(resultSet.getInt("storeId"));
                     donationItems.add(item);
                 }
             }
@@ -188,6 +193,7 @@ public class InventoryItemDAOImpl implements InventoryItemDAO {
                     item.setExpirationDate(resultSet.getDate("expirationDate"));
                     item.setForDonation(resultSet.getBoolean("forDonation"));
                     item.setSurplus(resultSet.getBoolean("surplus"));
+                    item.setStoreId(resultSet.getInt("storeId"));
                     return item;
                 }
             }
@@ -195,5 +201,32 @@ public class InventoryItemDAOImpl implements InventoryItemDAO {
             e.printStackTrace();
         }
         return null; // Return null if no item found with the given ID
+    }
+    public List<InventoryItem> getStoreInventoryItems(int storeId) {
+        List<InventoryItem> donationItems = new ArrayList<>();
+        String sql = "SELECT * FROM inventoryItem WHERE forDonation = ?";
+
+        try (Connection connection = DBConnection.getInstance().getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, storeId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    InventoryItem item = new InventoryItem();
+                    item.setItemId(resultSet.getInt("itemId"));
+                    item.setItemName(resultSet.getString("itemName"));
+                    item.setItemDescription(resultSet.getString("itemDescription"));
+                    item.setQuantity(resultSet.getInt("quantity"));
+                    item.setExpirationDate(resultSet.getDate("expirationDate"));
+                    item.setForDonation(resultSet.getBoolean("forDonation"));
+                    item.setSurplus(resultSet.getBoolean("surplus"));
+                    item.setStoreId(resultSet.getInt("storeId"));
+                    donationItems.add(item);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return donationItems;
     }
 }

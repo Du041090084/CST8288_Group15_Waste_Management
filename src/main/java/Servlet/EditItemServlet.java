@@ -4,12 +4,17 @@ import inventory.InventoryItem;
 import inventory.InventoryItemDAOImpl;
 import java.io.IOException;
 import java.sql.Date;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import subscription.Emailer;
+import subscription.SubscriptionDAO;
+import subscription.SubscriptionDAOImpl;
+import subscription.subscription;
 
 /**
  * Servlet implementation class EditItemServlet
@@ -18,7 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/EditItemServlet")
 public class EditItemServlet extends HttpServlet {
     private InventoryItemDAOImpl inventoryDAO = new InventoryItemDAOImpl();
-
+    private final SubscriptionDAO subsDAO = new SubscriptionDAOImpl();
+    private final Emailer mail = new Emailer();
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -33,14 +39,8 @@ public class EditItemServlet extends HttpServlet {
         int itemId = Integer.parseInt(request.getParameter("itemId"));
 
         // Retrieve the inventory item from the database using its itemId
-        InventoryItem item = inventoryDAO.getInventoryItemById(itemId);
-
-        // Set the inventory item as an attribute in the request
-        request.setAttribute("item", item);
-
-        // Forward the request to the edit-item.jsp page
-        RequestDispatcher dispatcher = request.getRequestDispatcher("editItem.jsp");
-        dispatcher.forward(request, response);
+        inventoryDAO.deleteInventoryItem(itemId);
+        response.sendRedirect("retailer.jsp");
     }
 
     /**
@@ -78,10 +78,16 @@ public class EditItemServlet extends HttpServlet {
         boolean forDonation = request.getParameter("forDonation") != null;
         boolean surplus = request.getParameter("surplus") != null;
 
-        InventoryItem updatedItem = new InventoryItem(itemId, itemName, itemDescription, quantity, expirationDate, forDonation, surplus);
+        InventoryItem updatedItem = new InventoryItem(itemId, itemName, itemDescription, quantity, expirationDate, forDonation, surplus,(int) request.getSession().getAttribute("userId"));
 
         inventoryDAO.updateInventoryItem(updatedItem);
-
+        
+        if (surplus){
+            List<subscription> subs = subsDAO.getAllSubscribers((int) request.getSession().getAttribute("userId"));
+            for(int i=0; i<subs.size() ; i++){
+                mail.send(subs.get(i).getUserEmail(), (String) request.getSession().getAttribute("SenderEmail"));
+            }
+        }
         response.sendRedirect(request.getContextPath() + "/RetailerServlet");
     }
 }

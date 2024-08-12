@@ -19,7 +19,9 @@ CREATE TABLE InventoryItem (
     quantity INT NOT NULL,
     expirationDate DATE NOT NULL,
     surplus BOOLEAN NOT NULL,
-    forDonation BOOLEAN NOT NULL
+    forDonation BOOLEAN NOT NULL,
+    storeId INT NOT NULL,
+    FOREIGN KEY (storeId) REFERENCES User(userId)
 );
 
 CREATE TABLE notifications (
@@ -29,3 +31,10 @@ CREATE TABLE notifications (
     notificationMessage VARCHAR(75) NOT NULL,
     FOREIGN KEY (userId) REFERENCES User(userId)
 );
+
+CREATE TABLE subscriptions (
+    userEmail VARCHAR(50) NOT NULL,
+    storeId INT NOT NULL,
+    FOREIGN KEY (userEmail) references User(email),
+    FOREIGN KEY (storeId) references User(userId),
+)

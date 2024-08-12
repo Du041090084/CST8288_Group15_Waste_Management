@@ -44,7 +44,7 @@
                     <td><%= item.getExpirationDate() %></td>
                     <td><%= item.getDays_Until_Expiration() %></td>
                     <td>
-                        <a href="EditItemServlet?itemId=<%= item.getItemId() %>">Edit</a> <!-- Edit link -->
+                        <a href="redirectEditItem?itemServletId=<%= item.getItemId() %>">Edit</a> <!-- Edit link -->
                     </td>
                 </tr>
             <% } %>

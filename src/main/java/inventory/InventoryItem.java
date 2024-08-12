@@ -14,6 +14,7 @@ public class InventoryItem {
     private int days_until_expiration;
     private boolean forDonation;
     private boolean surplus;
+    private int storeId;
 
     /**
      * Constructs an InventoryItem object with specified parameters.
@@ -25,7 +26,7 @@ public class InventoryItem {
      * @param forDonation Indicates if the item is for donation.
      * @param surplus Indicates if the item is surplus.
      */
-    public InventoryItem(int itemId, String itemName, String itemDescription, int quantity, Date expirationDate, boolean forDonation, boolean surplus) {
+    public InventoryItem(int itemId, String itemName, String itemDescription, int quantity, Date expirationDate, boolean forDonation, boolean surplus, int storeId) {
         this.itemId = itemId;
         this.itemName = itemName;
         this.itemDescription = itemDescription;
@@ -35,6 +36,7 @@ public class InventoryItem {
         this.days_until_expiration = (int) Math.floor(difference/86400000);
         this.forDonation = forDonation;
         this.surplus = surplus;
+        this.storeId = storeId;
     }
 
     /**
@@ -168,5 +170,13 @@ public class InventoryItem {
      */
     public void setSurplus(boolean surplus) {
         this.surplus = surplus;
+    }
+    
+    public int getStoreId(){
+        return this.storeId;
+    }
+    
+    public void setStoreId(int storeId){
+        this.storeId = storeId;
     }
 }

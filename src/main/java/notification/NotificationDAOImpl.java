@@ -37,7 +37,7 @@ public class NotificationDAOImpl implements NotificationDAO {
         String sql = "INSERT INTO notifications (userId, surplusFoodId, notificationMessage) VALUES (?, ?, ?)";
 
         try (Connection connection = DBConnection.getInstance().getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+            PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, notification.getUserId());
             statement.setInt(2, notification.getSurplusFoodId());
             statement.setString(3, notification.getNotificationMessage());

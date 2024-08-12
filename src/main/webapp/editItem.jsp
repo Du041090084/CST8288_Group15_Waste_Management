@@ -37,7 +37,7 @@
         </form>
 
         <!-- Delete Button Form -->
-        <form action="EditItemServlet" method="post">
+        <form action="EditItemServlet" method="get">
     <input type="hidden" name="itemId" value="${item.itemId}">
     <button type="submit" name="delete" value="true" class="delete-button">Delete</button>
 </form>

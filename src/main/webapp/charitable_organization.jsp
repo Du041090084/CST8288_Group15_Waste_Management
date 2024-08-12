@@ -44,10 +44,16 @@
                     <td><%= item.getExpirationDate() %></td>
                     <td><%= item.getDays_Until_Expiration() %></td>
                     <td>
-                        <form action="ClaimFoodServlet" method="post">
-        <input type="hidden" name="itemId" value="<%= item.getItemId() %>">
-        <button type="submit">Claim</button>
-                 </form> 
+                    <form action="ClaimFoodServlet" method="post">
+                    <input type="hidden" name="itemId" value="<%= item.getItemId() %>">
+                    <button type="submit">Claim</button>
+                    </form>
+                    </td>
+                    <td>
+                    <form action="SubscriptionServlet" method="get">
+                    <input type="hidden" name="storeId" value="<%= item.getStoreId() %>">
+                    <button type="submit">Subscribe to this store!</button>
+                    </form> 
                     </td>
                     
                 </tr>
