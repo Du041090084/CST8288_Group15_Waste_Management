@@ -15,10 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import subscription.SubscriptionDAO;
 import subscription.SubscriptionDAOImpl;
 import subscription.subscription;
-
 /**
  *
- * @author ryan2
+ * @author Yuyang Du
  */
 @WebServlet(name = "SubscriptionServlet", urlPatterns = {"/SubscriptionServlet"})
 public class SubscriptionServlet extends HttpServlet {
@@ -60,9 +59,13 @@ public class SubscriptionServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        //get the storeId of relevant item
         int storeId = parseInt(request.getParameter("storeId"));
+        //make subsription item. SenderEmail is actually the subscripbe email to be used in DB
         subscription newSub = new subscription((String) request.getSession().getAttribute("SenderEmail"), storeId);
+        //put it into DB
         subscriptionDAO.create(newSub);
+        //Redirect based on userType
         String UserType = (String) request.getSession().getAttribute("userType");
         switch (UserType){
             case "CONSUMER":

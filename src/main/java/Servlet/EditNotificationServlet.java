@@ -1,5 +1,8 @@
 package Servlet;
-
+/**
+ *
+ * @author Yuyang Du, Chang Li
+ */
 import inventory.InventoryItem;
 import inventory.InventoryItemDAOImpl;
 import java.io.IOException;

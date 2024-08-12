@@ -3,13 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
 package subscription;
-
-import java.sql.ResultSet;
 import java.util.List;
 
 /**
  *
- * @author ryan2
+ * @author Yuyang Du
  */
 public interface SubscriptionDAO {
     void create(subscription sub);

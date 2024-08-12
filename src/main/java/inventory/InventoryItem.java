@@ -1,5 +1,8 @@
 package inventory;
-
+/**
+ *
+ * @author Yuyang Du, Chang Li
+ */
 import java.sql.Date;
 
 /**

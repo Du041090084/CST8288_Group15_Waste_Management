@@ -1,5 +1,8 @@
 package user;
-
+/**
+ *
+ * @author  Chang Li
+ */
 /**
  * Interface for performing CRUD operations on user entities.
  */

@@ -10,7 +10,7 @@ import javax.mail.Session;
 import javax.mail.Transport; 
 /**
  *
- * @author li162
+ * @author Yuyang Du
  */
 public class Emailer {
     public Emailer(){

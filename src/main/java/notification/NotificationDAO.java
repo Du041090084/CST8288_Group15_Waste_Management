@@ -1,5 +1,8 @@
 package notification;
-
+/**
+ *
+ * @author  Chang Li
+ */
 
 public interface NotificationDAO {
     /**

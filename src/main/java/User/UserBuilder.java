@@ -1,5 +1,8 @@
 package user;
-
+/**
+ *
+ * @author  Chang Li
+ */
 /**
  * Builder pattern for constructing User objects.
  */

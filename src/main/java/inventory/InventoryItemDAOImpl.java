@@ -1,5 +1,8 @@
 package inventory;
-
+/**
+ *
+ * @author Yuyang Du, Chang Li
+ */
 import database.DBConnection;
 
 import java.sql.Connection;

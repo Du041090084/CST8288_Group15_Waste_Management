@@ -1,5 +1,8 @@
 package notification;
-
+/**
+ *
+ * @author Yuyang Du, Chang Li
+ */
 /**
  * Represents a notification.
  */

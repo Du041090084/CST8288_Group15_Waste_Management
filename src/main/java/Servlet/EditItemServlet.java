@@ -1,5 +1,8 @@
 package Servlet;
-
+/**
+ *
+ * @author Yuyang Du, Chang Li
+ */
 import inventory.InventoryItem;
 import inventory.InventoryItemDAOImpl;
 import java.io.IOException;
@@ -81,10 +84,12 @@ public class EditItemServlet extends HttpServlet {
         InventoryItem updatedItem = new InventoryItem(itemId, itemName, itemDescription, quantity, expirationDate, forDonation, surplus,(int) request.getSession().getAttribute("userId"));
 
         inventoryDAO.updateInventoryItem(updatedItem);
-        
+        //if item is marked surplus
         if (surplus){
+            //grap a lsit of each email subscribed to this store
             List<subscription> subs = subsDAO.getAllSubscribers((int) request.getSession().getAttribute("userId"));
             for(int i=0; i<subs.size() ; i++){
+                //send a email to each address
                 mail.send(subs.get(i).getUserEmail(), (String) request.getSession().getAttribute("SenderEmail"));
             }
         }

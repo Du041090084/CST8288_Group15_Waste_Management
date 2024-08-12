@@ -3,7 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 package Servlet;
-
+/**
+ *
+ * @author Yuyang Du
+ */
 import java.io.IOException;
 import static java.lang.Integer.parseInt;
 import java.util.List;
@@ -17,10 +20,7 @@ import subscription.Emailer;
 import notification.Notification;
 import notification.NotificationDAOImpl;
 
-/**
- *
- * @author li162
- */
+
 @WebServlet(name = "RedirectNotification", urlPatterns = {"/RedirectNotification"})
 public class RedirectNotification extends HttpServlet {
     private final NotificationDAOImpl notificationDAO = new  NotificationDAOImpl();

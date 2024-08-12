@@ -1,7 +1,9 @@
 package notification;
-
+/**
+ *
+ * @author Yuyang Du, Chang Li
+ */
 import database.DBConnection;
-import inventory.InventoryItem;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -125,6 +127,7 @@ public class NotificationDAOImpl implements NotificationDAO {
     /**
      * Retrieves all inventory items that are marked for donation.
      * 
+     * @param userId
      * @return A list of inventory items marked for donation.
      */
     public List<Notification> getNotificationsById(int userId) {

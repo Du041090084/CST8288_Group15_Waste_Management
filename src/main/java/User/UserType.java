@@ -1,5 +1,8 @@
 package user;
-
+/**
+ *
+ * @author Chang Li
+ */
 /**
  * Enum representing different types of users.
  */

@@ -11,12 +11,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
- * @author ryan2
+ * @author Yuyang Du
  */
 public class SubscriptionDAOImpl implements SubscriptionDAO{
     public SubscriptionDAOImpl(){};

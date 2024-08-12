@@ -1,5 +1,8 @@
 package Servlet;
-
+/**
+ *
+ * @author Yuyang Du, Chang Li
+ */
 import java.io.IOException;
 import java.sql.Date;
 import javax.servlet.ServletException;
@@ -55,9 +58,10 @@ public class AddNewItemServlet extends HttpServlet {
 
         // Add the new item to the inventory
         inventoryDAO.addInventoryItem(newItem);
-        
+        //grab the list of every email subscripbed to this store
         List<subscription> subs = subsDAO.getAllSubscribers((int) request.getSession().getAttribute("userId"));
         for(int i=0; i<subs.size() ; i++){
+            //send a email to each subscriber
             mail.send(subs.get(i).getUserEmail(), (String) request.getSession().getAttribute("SenderEmail"));
         }
         // Redirect back to the inventory management page

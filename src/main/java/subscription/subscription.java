@@ -6,7 +6,7 @@ package subscription;
 
 /**
  *
- * @author ryan2
+ * @author Yuyang Du
  */
 public class subscription {
     private String userEmail;
